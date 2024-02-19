@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MP3 Downloader</title>
+</head>
+<body>
+  <button id="clipButton">Play Clip</button>
+  <button id="revealButton">Reveal</button>
+  <br>
+  <a id="answerText"></a>
+  <audio id="audioPlayer" src=""></audio>
+  <br>
+  <script>
+    
+
+    document.getElementById('clipButton').addEventListener('click', function() {
+      document.getElementById('audioPlayer').src="https://quizmasters.biz/DB/Audio/Name%20That%20Tune%20In%20One/Mp3/1910%20Fruitgum%20Company%20-%20Simon%20Says_Clip.mp3";
+      document.getElementById('answerText').textContent="A";
+      document.getElementById('audioPlayer').play();
+    });
+    
+    document.getElementById('revealButton').addEventListener('click', function() {
+      document.getElementById('audioPlayer').src="https://quizmasters.biz/DB/Audio/Name%20That%20Tune%20In%20One/Mp3/Abba%20-%20Gimme%20Gimme%20Gimme%20_Clip.mp3";
+      document.getElementById('answerText').textContent="B";
+      document.getElementById('audioPlayer').play();
+    });
+  </script>
+</body>
+</html>
