@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Next Lines</title>
+</head>
+<body>
+  <a href="./index.html">Home</a>
+  <br>
+  <br>
+  <button id="clipButton">Play Clip</button>
+  <button id="revealButton">Reveal</button>
+  <br>
+  <ul>
+    <li><a id="answerText"></a></li>
+  </ul>
+  <audio id="audioPlayer" src=""></audio>
+  <br>
+  <button id="nextButton">Next</button>
+  <a id="indexText"></a>
+  <script>
+    let songs = [
+      [ "Abba%20-%20Fernando_Clip.mp3", "Abba%20-%20Fernando_Reveal.mp3", "In The Firelight Fernando" ],
+      [ "Abba%20-%20One%20Of%20Us_Clip.mp3", "Abba%20-%20One%20Of%20Us_ReveaL.mp3", "Everything Seems So Easy" ],
+      [ "Ace%20Of%20Base%20-%20All%20That%20She%20Wants_Clip.mp3", "Ace%20Of%20Base%20-%20All%20That%20She%20Wants_Reveal.mp3", "And Having fun" ],
+      [ "Adele%20-%20Hello_Clip.mp3", "Adele%20-%20Hello_Reveal.mp3", "About Who We Used To Be" ],
+      [ "Air%20Supply%20-%20All%20Out%20Of%20Love_Clip.mp3", "Air%20Supply%20-%20All%20Out%20Of%20Love_Reveal.mp3", "Your Smile In My Heart" ],
+      [ "Aled%20Jones%20-%20Walking%20In%20The%20Air_Clip.mp3", "Aled%20Jones%20-%20Walking%20In%20The%20Air_Reveal.mp3", "I'm Holding Very Tight" ],
+      [ "Alison%20Moyet%20-%20Invisible_Clip.mp3", "Alison%20Moyet%20-%20Invisible_Reveal.mp3", "You've Got Me So Confused" ],
+      [ "Anastasia%20-%20Im%20Outta%20Love_Clip.mp3", "Anastasia%20-%20Im%20Outta%20Love_Reveal.mp3", "I Aint Got No More Tears To Cry" ],
+      [ "Atomic%20Kitten%20-%20If%20You%20Come%20To%20Me_Clip.mp3", "Atomic%20Kitten%20-%20If%20You%20Come%20To%20Me_Reveal.mp3", "And Prove To Me It's Real" ],
+      [ "Atomic%20Kitten%20-%20Whole%20Again_Clip.mp3", "Atomic%20Kitten%20-%20Whole%20Again_Reveal.mp3", "I Wont Put You Down" ],
+      [ "B-52%27s%20-%20Love%20Shack_Clip.mp3", "B-52%27s%20-%20Love%20Shack_Reveal.mp3", "It Seats About Twenty" ],
+      [ "Baddiel%2C%20Skinner%20%26%20The%20Lightning%20Seeds%20-%20Three%20Lions_Clip.mp3", "Baddiel%2C%20Skinner%20%26%20The%20Lightning%20Seeds%20-%20Three%20Lions_Reveal.mp3", "Jules Rimet Still Gleaming" ],
+      [ "Band%20Aid%20-%20Do%20They%20Know%20It%27s%20Christmas%2001_Clip.mp3", "Band%20Aid%20-%20Do%20They%20Know%20It%27s%20Christmas%2001_Reveal.mp3", "And In Our World Of Plenty" ],
+      [ "Band%20Aid%20-%20Do%20They%20Know%20It%27s%20Christmas%2002_Clip.mp3", "Band%20Aid%20-%20Do%20They%20Know%20It%27s%20Christmas%2002_Reveal.mp3", "But Say A Prayer, To Pray For The Other Ones" ],
+      [ "Bangles%20-%20Manic%20Monday_Clip.mp3", "Bangles%20-%20Manic%20Monday_Reveal.mp3", "You Wish Your Bed Was Already Made" ],
+      [ "Barry%20Mannilow%20-%20Copa%20Cabana_Clip.mp3", "Barry%20Mannilow%20-%20Copa%20Cabana_Reveal.mp3", "They Worked From Eight Til Four" ],
+      [ "Beatles%20-%20From%20Me%20To%20You_Clip.MP3", "Beatles%20-%20From%20Me%20To%20You_Reveal.MP3", "And I'll Send It Along " ],
+      [ "Beats%20International%20-%20Dub%20Be%20Good%20to%20Me_Clip.mp3", "Beats%20International%20-%20Dub%20Be%20Good%20to%20Me_Reveal.mp3", "Not The Way I See It" ],
+      [ "Beautiful%20South%20-%20A%20Little%20Time_Clip.mp3", "Beautiful%20South%20-%20A%20Little%20Time_Reveal.mp3", "Your Face Has Been Looking Like Death For Hours" ],
+      [ "Beautiful%20South%20-%20Don%27t%20Marry%20Her_Clip.mp3", "Beautiful%20South%20-%20Don%27t%20Marry%20Her_Reveal.mp3", "A PHD In I Told You So" ],
+      [ "Beautiful%20South%20-%20Old%20Red%20Eyes%20Is%20Back_Clip.mp3", "Beautiful%20South%20-%20Old%20Red%20Eyes%20Is%20Back_Reveal.mp3", "Woman That I Could Have Wed" ],
+      [ "Beautiful%20South%20-%20Song%20for%20Whoever_Clip.mp3", "Beautiful%20South%20-%20Song%20for%20Whoever_Reveal.mp3", "You Put Me In My Rightful Place" ],
+      [ "Ben%20Haenow%20-%20Something%20I%20Need_Clip.mp3", "Ben%20Haenow%20-%20Something%20I%20Need_Reveal.mp3", "That You Can Tell" ],
+      [ "Bill%20Haley%20%26%20His%20Comets%20-%20Rock%20Around%20The%20Clock_Clip.mp3", "Bill%20Haley%20%26%20His%20Comets%20-%20Rock%20Around%20The%20Clock_Reveal.mp3", "We'll Yell For More" ],
+      [ "Bill%20Medley%20%26%20Jennifer%20Warnes%20-%20The%20Time%20Of%20My%20Life_Clip.mp3", "Bill%20Medley%20%26%20Jennifer%20Warnes%20-%20The%20Time%20Of%20My%20Life_Reveal.mp3", "Now With Passion In Our Eyes" ],
+      [ "Billy%20Fury%20-%20Halfway%20To%20Paradise_Clip.mp3", "Billy%20Fury%20-%20Halfway%20To%20Paradise_Reveal.mp3", "Is All I'll Stay" ],
+      [ "Billy%20Ocean%20-%20Get%20Outta%20My%20Dreams%2C%20Get%20Into%20My%20Car_Clip.mp3", "Billy%20Ocean%20-%20Get%20Outta%20My%20Dreams%2C%20Get%20Into%20My%20Car_Reveal.mp3", "Step In Your Shoe" ],
+      [ "Black%20Eyed%20Peas%20-%20I%20Gotta%20Feeling_Clip.mp3", "Black%20Eyed%20Peas%20-%20I%20Gotta%20Feeling_Reveal.mp3", "Let's Spend It Up" ],
+      [ "Blue%20-%20If%20You%20Come%20Back_Clip.mp3", "Blue%20-%20If%20You%20Come%20Back_Reveal.mp3", "Oh The Reason Why" ],
+      [ "Bobbie%20Darin%20-%20Dreamlover_Clip.mp3", "Bobbie%20Darin%20-%20Dreamlover_Reveal.mp3", "So I Don't Have To Dream Alone" ],
+      [ "Bon%20Jovi%20-%20Livin%27%20On%20A%20Prayer_Clip.mp3", "Bon%20Jovi%20-%20Livin%27%20On%20A%20Prayer_Reveal.mp3", "Working For Her Man" ],
+      [ "Boy%20Meets%20Girl%20-%20Waiting%20For%20A%20Star%20To%20Fall_Clip.mp3", "Boy%20Meets%20Girl%20-%20Waiting%20For%20A%20Star%20To%20Fall_Reveal.mp3", "And I Don't Know Why" ],
+      [ "Boyzone%20-%20Father%20And%20Son_Clip.mp3", "Boyzone%20-%20Father%20And%20Son_Reveal.mp3", "You'll Get Married" ],
+      [ "Britney%20Spears%20-%20Sometimes_Clip.mp3", "Britney%20Spears%20-%20Sometimes_Reveal.mp3", "Coz It Sounds So Good" ],
+      [ "Bros%20-%20I%20Owe%20You%20Nothing_Clip.mp3", "Bros%20-%20I%20Owe%20You%20Nothing_Reveal.mp3", "Nothing At All" ],
+      [ "Bruno%20Mars%20-%20Grenade_Clip.mp3", "Bruno%20Mars%20-%20Grenade_Reveal.mp3", "Tossed It In The Trash" ],
+      [ "Busted%20-%20What%20I%20Go%20To%20School%20For_Clip.mp3", "Busted%20-%20What%20I%20Go%20To%20School%20For_Reveal.mp3", "They Will Laugh" ],
+      [ "Celine%20Dion%20-%20Think%20Twice_Clip.mp3", "Celine%20Dion%20-%20Think%20Twice_Reveal.mp3", "You've Been The Sweetest Part Of My Life For So Long" ],
+      [ "Chas%20%26%20Dave%20-%20Rabbit_Clip.mp3", "Chas%20%26%20Dave%20-%20Rabbit_Reveal.mp3", "You Got More Rabbit Than Sainsbury" ],
+      [ "Cher%20-%20The%20Shoop%20Shoop%20Song_Clip.mp3", "Cher%20-%20The%20Shoop%20Shoop%20Song_Reveal.mp3", "Find Out What You Wanna Know" ],
+      [ "Cheryl%20Cole%20-%20Fight%20For%20This%20Love_Clip.mp3", "Cheryl%20Cole%20-%20Fight%20For%20This%20Love_Reveal.mp3", "Are We Sitting In Reverse" ],
+      [ "Chesney%20Hawkes%20-%20The%20One%20And%20Only_Clip.mp3", "Chesney%20Hawkes%20-%20The%20One%20And%20Only_Reveal.mp3", "They Try To Make Me Forget" ],
+      [ "Craig%20David%20-%207%20Days_Clip.mp3", "Craig%20David%20-%207%20Days_Reveal.mp3", "She Asked Me For The Time" ],
+      [ "Dean%20Martin%20-%20Let%20It%20Snow_Clip.mp3", "Dean%20Martin%20-%20Let%20It%20Snow_Reveal.mp3", "The Lights Are Turned Way Down Low" ],
+      [ "Demi%20Lovato%20-%20Let%20It%20Go_Clip.mp3", "Demi%20Lovato%20-%20Let%20It%20Go_Reveal.mp3", "The Cold Never Bothered Me Anyway" ],
+      [ "Dion%20%26%20Belmonts%20-%20Wanderer_Clip.mp3", "Dion%20%26%20Belmonts%20-%20Wanderer_Reveal.mp3", "I Hug And I Squeeze Em" ],
+      [ "Dire%20Straits%20-%20Romeo%20%26%20Juliet_Clip.mp3", "Dire%20Straits%20-%20Romeo%20%26%20Juliet_Reveal.mp3", "How About It" ],
+      [ "DJ%20Jazzy%20Jeff%20And%20The%20Fresh%20Prince%20-%20Summertime_Clip.mp3", "DJ%20Jazzy%20Jeff%20And%20The%20Fresh%20Prince%20-%20Summertime_Reveal.mp3", "The Alpine Blast" ],
+      [ "DNA%20Feat%20Suzanne%20Vega%20-%20Toms%20Diner_Clip.mp3", "DNA%20Feat%20Suzanne%20Vega%20-%20Toms%20Diner_Reveal.mp3", "Says The Man Behind The Counter" ],
+      [ "Don%20Mclean%20-%20American%20Pie_Clip.mp3", "Don%20Mclean%20-%20American%20Pie_Reveal.mp3", "Bad News On The Doorstep" ],
+      [ "Drifters%20-%20Kissin%27%20In%20The%20Back%20Row%20Of%20The%20Movies_Clip.mp3", "Drifters%20-%20Kissin%27%20In%20The%20Back%20Row%20Of%20The%20Movies_Reveal.mp3", "Smooching In The Back Row" ],
+      [ "Elton%20John%20-%20Candle%20In%20The%20Wind_Clip.mp3", "Elton%20John%20-%20Candle%20In%20The%20Wind_Reveal.mp3", "Crawled Out Of The Woodwork" ],
+      [ "Elton%20John%20-%20Passengers_Clip.mp3", "Elton%20John%20-%20Passengers_Reveal.mp3", "One Hypocritical Fool" ],
+      [ "Erasure%20-%20Ship%20Of%20Fools_Clip.mp3", "Erasure%20-%20Ship%20Of%20Fools_Reveal.mp3", "Two And Two Were Four" ],
+      [ "Eurythmics%20-%20Thorn%20In%20My%20Side_Clip.mp3", "Eurythmics%20-%20Thorn%20In%20My%20Side_Reveal.mp3", "But I Got What I Deserved" ],
+      [ "Everly%20Brothers%20-%20Wake%20Up%20Little%20Suzie_Clip.mp3", "Everly%20Brothers%20-%20Wake%20Up%20Little%20Suzie_Reveal.mp3", "We're In Trouble Deep" ],
+      [ "Fairground%20Attraction%20-%20Perfect_Clip.mp3", "Fairground%20Attraction%20-%20Perfect_Reveal.mp3", "To Play Silly Games" ],
+      [ "Fleetwood%20Mac%20-%20Little%20Lies_Clip.mp3", "Fleetwood%20Mac%20-%20Little%20Lies_Reveal.mp3", "So I'll Settle For One Day" ],
+      [ "Flying%20Pickets%20-%20Only%20You_Clip.mp3", "Flying%20Pickets%20-%20Only%20You_Reveal.mp3", "Came Back Only Yesterday" ],
+      [ "Foreigner%20-%20I%20Wanna%20Know%20What%20Love%20Is_Clip.mp3", "Foreigner%20-%20I%20Wanna%20Know%20What%20Love%20Is_Reveal.mp3", "Feels Like The World Upon My Shoulder" ],
+      [ "Four%20Seasons%20-%20December%2063_Clip.mp3", "Four%20Seasons%20-%20December%2063_Reveal.mp3", "But I Was Never Gonna Be The Same" ],
+      [ "Frankie%20Goes%20To%20Hollywood%20-%20The%20Power%20Of%20Love%2001_Clip.mp3", "Frankie%20Goes%20To%20Hollywood%20-%20The%20Power%20Of%20Love%2001_Reveal.mp3", "Feels Like Fire" ],
+      [ "Frankie%20Goes%20To%20Hollywood%20-%20The%20Power%20Of%20Love%2002_Clip.mp3", "Frankie%20Goes%20To%20Hollywood%20-%20The%20Power%20Of%20Love%2002_Reveal.mp3", "Let Yourself Be Beautiful" ],
+      [ "Geri%20Halliwell%20-%20Lift%20Me%20Up_Clip.mp3", "Geri%20Halliwell%20-%20Lift%20Me%20Up_Reveal.mp3", "All The Colours Of The Rainbow" ],
+      [ "Glee%20Cast%20-%20Don%27t%20Stop%20Believing_Clip.mp3", "Glee%20Cast%20-%20Don%27t%20Stop%20Believing_Reveal.mp3", "Born And Raised In South Detroit" ],
+      [ "Glen%20Campbell%20%20-%20Rhinestone%20Cowboy_Clip.mp3", "Glen%20Campbell%20%20-%20Rhinestone%20Cowboy_Reveal.mp3", "Like The Snow And The Rain" ],
+      [ "Haddaway%20-%20%20I%20Miss%20You_Clip.mp3", "Haddaway%20-%20%20I%20Miss%20You_Reveal.mp3", "I Thought I'd Be Alright But I Was Wrong" ],
+      [ "Hearsay%20-%20Pure%20And%20Simple_Clip.mp3", "Hearsay%20-%20Pure%20And%20Simple_Reveal.mp3", "You Gota Believe Me When I Say" ],
+      [ "Housemartins%20-%20Happy%20Hour_Clip.mp3", "Housemartins%20-%20Happy%20Hour_Reveal.mp3", "And If You Don't Win Then You've Lot" ],
+      [ "Human%20League%20-%20Human_Clip.mp3", "Human%20League%20-%20Human_Reveal.mp3", "To Fill The Space Of Emptyness" ],
+      [ "J%20Geils%20Band%20-%20Centrefold_Clip.mp3", "J%20Geils%20Band%20-%20Centrefold_Reveal.mp3", "On The Pages In Between" ],
+      [ "Jamelia%20-%20Superstar_Clip.mp3", "Jamelia%20-%20Superstar_Reveal.mp3", "Bad Boys On Their Best Behavoir" ],
+      [ "James%20Blunt%20-%20You%27re%20Beautiful_Clip.mp3", "James%20Blunt%20-%20You%27re%20Beautiful_Reveal.mp3", "She Was With Another Man" ],
+      [ "JLS%20-%20Everybody%20In%20Love_Clip.mp3", "JLS%20-%20Everybody%20In%20Love_Reveal.mp3", "Theres Nothing Left For You" ],
+      [ "John%20Lennon%20-%20Imagine_Clip.mp3", "John%20Lennon%20-%20Imagine_Reveal.mp3", "Above Us Only Sky" ],
+      [ "Justin%20Bieber%20-%20Baby_Clip.mp3", "Justin%20Bieber%20-%20Baby_Reveal.mp3", "What Are You Saying" ],
+      [ "Kate%20Nash%20-%20Foundations_Clip.mp3", "Kate%20Nash%20-%20Foundations_Reveal.mp3", "In Front Of Our Friends" ],
+      [ "Kim%20Wylde%20-%20Kids%20In%20America_Clip.mp3", "Kim%20Wylde%20-%20Kids%20In%20America_Reveal.mp3", "All The Colours Of The Rainbow" ],
+      [ "Kiss%20-%20Crazy%20Crazy%20Nights_Clip.mp3", "Kiss%20-%20Crazy%20Crazy%20Nights_Reveal.mp3", "One Million Strong" ],
+      [ "Kraftwerk%20-%20The%20Model_Clip.mp3", "Kraftwerk%20-%20The%20Model_Reveal.mp3", "She Smiles From Time To Time" ],
+      [ "Kylie%20Minogue%20-%20I%20Should%20Be%20So%20Lucky_Clip.mp3", "Kylie%20Minogue%20-%20I%20Should%20Be%20So%20Lucky_Reveal.mp3", "We Walk Together Hand In Hand" ],
+      [ "Leann%20Rimes%20-%20How%20Do%20I%20Live_Clip.mp3", "Leann%20Rimes%20-%20How%20Do%20I%20Live_Reveal.mp3", "You're My World My Heart My Soul" ],
+      [ "Lighthouse%20Family%20-%20High_Clip.mp3", "Lighthouse%20Family%20-%20High_Reveal.mp3", "Though It's Darker Than December" ],
+      [ "Lisa%20Stansfield%20-%20All%20Around%20The%20World_Clip.mp3", "Lisa%20Stansfield%20-%20All%20Around%20The%20World_Reveal.mp3", "Things He Didn't Know" ],
+      [ "Little%20Eva%20-%20The%20Locomotion_Clip.mp3", "Little%20Eva%20-%20The%20Locomotion_Reveal.mp3", "When I Think You've Got The Knack" ],
+      [ "Madness%20-%20It%20Must%20Be%20Love_Clip.mp3", "Madness%20-%20It%20Must%20Be%20Love_Reveal.mp3", "Every Night Every Day" ],
+      [ "Madness%20-%20My%20Girl_Clip.mp3", "Madness%20-%20My%20Girl_Reveal.mp3", "Every Now And Then" ],
+      [ "Madonna%20-%20Into%20The%20Groove_Clip.mp3", "Madonna%20-%20Into%20The%20Groove_Reveal.mp3", "I Hope This Feeling Never Ends Tonight" ],
+      [ "Madonna%20-%20La%20Isla%20Bonita_Clip.mp3", "Madonna%20-%20La%20Isla%20Bonita_Reveal.mp3", "Young Girl With Eyes Like The Desert" ],
+      [ "Madonna%20-%20Like%20A%20Virgin_Clip.mp3", "Madonna%20-%20Like%20A%20Virgin_Reveal.mp3", "Shiny And New" ],
+      [ "Marillion%20-%20Kayleigh_Clip.mp3", "Marillion%20-%20Kayleigh_Reveal.mp3", "I Thought Is Was Confetti In Our Hair" ],
+      [ "Matt%20Cardle%20-%20When%20We%20Collide_Clip.mp3", "Matt%20Cardle%20-%20When%20We%20Collide_Reveal.mp3", "Till The End Of Time" ],
+      [ "Mc%20Hammer%20-%20U%20Cant%20Touch%20This_Clip.mp3", "Mc%20Hammer%20-%20U%20Cant%20Touch%20This_Reveal.mp3", "Oh My Lord" ],
+      [ "Mel%20C%20-%20If%20That%20Where%20Me_Clip.mp3", "Mel%20C%20-%20If%20That%20Where%20Me_Reveal.mp3", "Some People Stop, Some People Stare" ],
+      [ "Monkees%20-%20Daydream%20Believer_Clip.mp3", "Monkees%20-%20Daydream%20Believer_Reveal.mp3", "Wipe The Sleep Out Of My Eyes" ],
+      [ "Mud%20-%20Lonely%20This%20Christmas_Clip.mp3", "Mud%20-%20Lonely%20This%20Christmas_Reveal.mp3", "What Can I Do, Without You" ],
+      [ "Musical%20Youth%20-%20Pass%20The%20Dutchie_Clip.mp3", "Musical%20Youth%20-%20Pass%20The%20Dutchie_Reveal.mp3", "Month Of June" ],
+      [ "Natalie%20Imbruglia%20-%20Torn_Clip.mp3", "Natalie%20Imbruglia%20-%20Torn_Reveal.mp3", "What Your Heart Is For" ],
+      [ "Nickelback%20-%20How%20You%20Remind%20Me_Clip.mp3", "Nickelback%20-%20How%20You%20Remind%20Me_Reveal.mp3", "Heart Worth Breaking" ],
+      [ "Nickelback%20-%20Rockstar_Clip.mp3", "Nickelback%20-%20Rockstar_Reveal.mp3", "That's Got No Limit" ],
+      [ "Nicki%20Minaj%20-%20Starships_Clip.mp3", "Nicki%20Minaj%20-%20Starships_Reveal.mp3", "And Touch The Sky" ],
+      [ "Oasis%20-%20Dont%20Look%20Back%20In%20Anger%2001_Clip.mp3", "Oasis%20-%20Dont%20Look%20Back%20In%20Anger%2001_Reveal.mp3", "Slowly Fade Away" ],
+      [ "Oasis%20-%20Dont%20Look%20Back%20In%20Anger%2002_Clip.mp3", "Oasis%20-%20Dont%20Look%20Back%20In%20Anger%2002_Reveal.mp3", "Take That Look From Off Your Face" ],
+      [ "Oasis%20-%20Wonderwall_Clip.mp3", "Oasis%20-%20Wonderwall_Reveal.mp3", "And All The Lights That Lead Us There Are Blinding" ],
+      [ "One%20Direction%20-%20Steal%20My%20Girl_Clip.mp3", "One%20Direction%20-%20Steal%20My%20Girl_Reveal.mp3", "Calls Me Son" ],
+      [ "Otis%20Redding%20-%20Sitting%20On%20The%20Dock%20Of%20The%20Bay_Clip.mp3", "Otis%20Redding%20-%20Sitting%20On%20The%20Dock%20Of%20The%20Bay_Reveal.mp3", "Watching The Tide Roll Away" ],
+      [ "Passenger%20-%20Let%20Her%20Go_Clip.mp3", "Passenger%20-%20Let%20Her%20Go_Reveal.mp3", "You'll Understand Why" ],
+      [ "Paul%20Anka%20-%20Oh%20Carol_Clip.mp3", "Paul%20Anka%20-%20Oh%20Carol_Reveal.mp3", "Coz I Love You So" ],
+      [ "Percy%20Sledge%20-%20When%20A%20Man%20Loves%20A%20Woman_Clip.mp3", "Percy%20Sledge%20-%20When%20A%20Man%20Loves%20A%20Woman_Reveal.mp3", "She Can Do No Wrong" ],
+      [ "Pet%20Shop%20Boys%20-%20West%20End%20Girls_Clip.mp3", "Pet%20Shop%20Boys%20-%20West%20End%20Girls_Reveal.mp3", "Call The Police Theres A Madman Around" ],
+      [ "Petula%20Clark%20-%20Downtown_Clip.mp3", "Petula%20Clark%20-%20Downtown_Reveal.mp3", "Where The Neon Signs Are Pretty" ],
+      [ "Phil%20Collins%20-%20Easy%20Lover_Clip.mp3", "Phil%20Collins%20-%20Easy%20Lover_Reveal.mp3", "Leave You And Deceive You" ],
+      [ "Phil%20Collins%20-%20You%20Cant%20Hurry%20In%20Love_Clip.mp3", "Phil%20Collins%20-%20You%20Cant%20Hurry%20In%20Love_Reveal.mp3", "Just Trust In The Good Times" ],
+      [ "Pointer%20Sisters%20-%20I%27m%20So%20Excited_Clip.mp3", "Pointer%20Sisters%20-%20I%27m%20So%20Excited_Reveal.mp3", "Wrap Myself Around You" ],
+      [ "Police%20-%20Roxanne_Clip.mp3", "Police%20-%20Roxanne_Reveal.mp3", "Sell Your Body To The Night" ],
+      [ "Pretenders%20-%20Brass%20In%20Pocket_Clip.mp3", "Pretenders%20-%20Brass%20In%20Pocket_Reveal.mp3", "Make You Notice" ],
+      [ "Pulp%20-%20Common%20People_Clip.mp3", "Pulp%20-%20Common%20People_Reveal.mp3", "That Her Dad Was Loaded" ],
+      [ "Queen%20-%20I%20Want%20To%20Break%20Free_Clip.mp3", "Queen%20-%20I%20Want%20To%20Break%20Free_Reveal.mp3", "You're So Self Satisfied" ],
+      [ "Rainbow%20-%20Since%20Youve%20Been%20Gone_Clip.mp3", "Rainbow%20-%20Since%20Youve%20Been%20Gone_Reveal.mp3", "Look At The Fix You've Put Me In" ],
+      [ "Ray%20Parker%20Jr.%20-%20Ghostbusters_Clip.mp3", "Ray%20Parker%20Jr.%20-%20Ghostbusters_Reveal.mp3", "And It Don't Look Good" ],
+      [ "Rick%20Astley%20-%20Never%20Gonna%20Give%20You%20Up_Clip.mp3", "Rick%20Astley%20-%20Never%20Gonna%20Give%20You%20Up_Reveal.mp3", "Gota Make You Understand" ],
+      [ "Rod%20Stewart%20-%20Baby%20Jane_Clip.mp3", "Rod%20Stewart%20-%20Baby%20Jane_Reveal.mp3", "I Know Secrets About You" ],
+      [ "S%20Club%207%20-%20Don%27t%20Stop%20Movin_Clip.mp3", "S%20Club%207%20-%20Don%27t%20Stop%20Movin_Reveal.mp3", "Don't Get Left Behind" ],
+      [ "S%20Club%207%20-%20Reach_Clip.mp3", "S%20Club%207%20-%20Reach_Reveal.mp3", "Are A Million Miles Away" ],
+      [ "Savage%20Garden%20-%20Affirmation_Clip.mp3", "Savage%20Garden%20-%20Affirmation_Reveal.mp3", "Because It's Bad For You" ],
+      [ "Savage%20Garden%20-%20Truly%20Madly%20Deeply_Clip.mp3", "Savage%20Garden%20-%20Truly%20Madly%20Deeply_Reveal.mp3", "Until The Sky Falls Down On Me" ],
+      [ "Shakespears%20Sister%20-%20Stay_Clip.mp3", "Shakespears%20Sister%20-%20Stay_Reveal.mp3", "Don't Think I'll Understand" ],
+      [ "Shania%20Twain%20-%20That%20Don%27t%20Impress%20Me%20Much_Clip.mp3", "Shania%20Twain%20-%20That%20Don%27t%20Impress%20Me%20Much_Reveal.mp3", "So You're A Rocket Scientist" ],
+      [ "Shontelle%20-%20Impossible_Clip.mp3", "Shontelle%20-%20Impossible_Reveal.mp3", "My Illusion My Mistake" ],
+      [ "Sinead%20O%20Connor%20-%20Nothing%20Compares%202%20U_Clip.mp3", "Sinead%20O%20Connor%20-%20Nothing%20Compares%202%20U_Reveal.mp3", "And Sleep All Day" ],
+      [ "Sixpence%20None%20The%20Richer%20-%20Kiss%20Me_Clip.mp3", "Sixpence%20None%20The%20Richer%20-%20Kiss%20Me_Reveal.mp3", "Wear That Dress" ],
+      [ "Slade%20-%20Merry%20Xmas%20Everybody_Clip.mp3", "Slade%20-%20Merry%20Xmas%20Everybody_Reveal.mp3", "Ride A Red Nosed Reindeer" ],
+      [ "Smokey%20Robinson%20%26%20The%20Miracles%20-%20The%20Tracks%20Of%20My%20Tears_Clip.mp3", "Smokey%20Robinson%20%26%20The%20Miracles%20-%20The%20Tracks%20Of%20My%20Tears_Reveal.mp3", "Deep Inside I'm Blue" ],
+      [ "Smokie%20-%20Living%20Next%20Door%20To%20Alice_Clip.mp3", "Smokie%20-%20Living%20Next%20Door%20To%20Alice_Reveal.mp3", "But I Just Don't Wana Know" ],
+      [ "Soft%20Cell%20-%20Tainted%20Love_Clip.mp3", "Soft%20Cell%20-%20Tainted%20Love_Reveal.mp3", "Take My Tears" ],
+      [ "Sophie%20Ellis-Bextor%20-%20Murder%20On%20The%20Dancefloor_Clip.mp3", "Sophie%20Ellis-Bextor%20-%20Murder%20On%20The%20Dancefloor_Reveal.mp3", "Boy Just Come Along" ],
+      [ "Spice%20Girls%20-%20Good%20Bye_Clip.mp3", "Spice%20Girls%20-%20Good%20Bye_Reveal.mp3", "Fly Like An Angel" ],
+      [ "Spice%20Girls%20-%20Stop_Clip.mp3", "Spice%20Girls%20-%20Stop_Reveal.mp3", "Caught In A Daze Its Just A Phase" ],
+      [ "Spice%20Girls%20-%20Wannabe_Clip.mp3", "Spice%20Girls%20-%20Wannabe_Reveal.mp3", "You Gotta Listen Carefully " ],
+      [ "Spitting%20Image%20Cast%20-%20The%20Chicken%20Song_Clip.mp3", "Spitting%20Image%20Cast%20-%20The%20Chicken%20Song_Reveal.mp3", "For Moronic Holidays" ],
+      [ "Starship%20-%20Nothings%20Gonna%20Stop%20Us%20Now_Clip.mp3", "Starship%20-%20Nothings%20Gonna%20Stop%20Us%20Now_Reveal.mp3", "Let Em Say We're Crazy" ],
+      [ "Sting%20-%20An%20Englishman%20In%20New%20York%20Clip.mp3", "Sting%20-%20An%20Englishman%20In%20New%20York_Reveal.mp3", "Walking Cane Here At My Side" ],
+      [ "Stranglers%20-%20Golden%20Brown_Clip.mp3", "Stranglers%20-%20Golden%20Brown_Reveal.mp3", "Tied To The Mast" ],
+      [ "Survivor%20-%20Eye%20Of%20The%20Tiger_Clip.mp3", "Survivor%20-%20Eye%20Of%20The%20Tiger_Reveal.mp3", "So Many Times It Happens To Fast" ],
+      [ "Take%20That%20-%20Babe_Clip.mp3", "Take%20That%20-%20Babe_Reveal.mp3", "You Had Better Ask Her Not Me" ],
+      [ "Take%20That%20-%20Relight%20My%20Fire_Clip.mp3", "Take%20That%20-%20Relight%20My%20Fire_Reveal.mp3", "Thief In The Night" ],
+      [ "Taylor%20Swift%20-%20Blank%20Space_Clip.mp3", "Taylor%20Swift%20-%20Blank%20Space_Reveal.mp3", "For A Weekend" ],
+      [ "Thunderclap%20Newman%20-%20Something%20In%20The%20Air_Clip.mp3", "Thunderclap%20Newman%20-%20Something%20In%20The%20Air_Reveal.mp3", "And You Know Its Right" ],
+      [ "Toploader%20-%20Dancing%20In%20The%20Moonlight_Clip.mp3", "Toploader%20-%20Dancing%20In%20The%20Moonlight_Reveal.mp3", "They Don't Bark And They Dont Bite" ],
+      [ "Vanilla%20Ice%20-%20Ice%20Ice%20Baby_Clip.mp3", "Vanilla%20Ice%20-%20Ice%20Ice%20Baby_Reveal.mp3", "Like A Candle" ],
+      [ "Westlife%20-%20My%20Love_Clip.mp3", "Westlife%20-%20My%20Love_Reveal.mp3", "Where They Are" ],
+      [ "Wet%20Wet%20%20Wet%20-%20Angel%20Eyes_Clip.mp3", "Wet%20Wet%20%20Wet%20-%20Angel%20Eyes_Reveal.mp3", "Sick Of Leaving In The Morning" ],
+      [ "Wham%20-%20Freedom_Clip.mp3", "Wham%20-%20Freedom_Reveal.mp3", "You Would Deny It" ],
+      [ "Wham%20-%20Last%20Christmas_Clip.mp3", "Wham%20-%20Last%20Christmas_Reveal.mp3", "To Save Me From Tears" ],
+      [ "Wham%20-%20Wake%20Me%20Up%20Before%20You%20Go-Go_Clip.mp3", "Wham%20-%20Wake%20Me%20Up%20Before%20You%20Go-Go_Reveal.mp3", "Til My Feet Do The Same" ],
+      [ "Whigfield%20-%20Saturday%20Night_Clip.mp3", "Whigfield%20-%20Saturday%20Night_Reveal.mp3", "Take You To The Top" ],
+      [ "Yes%20-%20Owner%20Of%20A%20Lonely%20Heart_Clip.mp3", "Yes%20-%20Owner%20Of%20A%20Lonely%20Heart_Reveal.mp3", "Prove Yourself" ],
+  ];
+
+    let index = Math.floor(Math.random() * songs.length);
+    let path = "https://quizmasters.biz/DB/Audio/Name%20The%20Next%20Line/Mp3/";
+
+    document.getElementById('clipButton').addEventListener('click', function() {
+      // Select the clip version of the song and play it
+      document.getElementById('audioPlayer').src=path+songs[index][0];
+      document.getElementById('answerText').textContent="";
+      document.getElementById('audioPlayer').play();
+    });
+    
+    document.getElementById('revealButton').addEventListener('click', function() {
+      // Select the reveal version of the song and play it
+      document.getElementById('audioPlayer').src=path+songs[index][1];
+      document.getElementById('answerText').textContent=songs[index][2];
+      document.getElementById('audioPlayer').play();
+    });
+    
+    document.getElementById('nextButton').addEventListener('click', function() {
+      // Stop any current audio
+      document.getElementById('audioPlayer').pause();
+      document.getElementById('answerText').textContent="";
+      
+      // Choose the next one to guess
+      index = Math.floor(Math.random() * songs.length);
+      document.getElementById('indexText').textContent="" + index;
+    });
+  </script>
+</body>
+</html>
