@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supersonic Songs</title>
+</head>
+<body>
+  <a href="./index.html">Home</a>
+  <br>
+  <br>
+  <button id="clipButton">Play Clip</button>
+  <button id="revealButton">Reveal</button>
+  <br>
+  <a id="answerText"></a>
+  <audio id="audioPlayer" src=""></audio>
+  <br>
+  <button id="nextButton">Next</button>
+  <a id="indexText"></a>
+  <script>
+    let songs = [
+      [ "Abba - S.O.S", "Abba%20-%20S.O.S_Clip.mp3", "Abba%20-%20S.O.S_Reveal.mp3" ],
+      [ "Adamski (Feat Seal) - Killer", "Adamski%20%28Feat%20Seal%29%20-%20Killer_Clip.mp3", "Adamski%20%28Feat%20Seal%29%20-%20Killer_Reveal.mp3" ],
+      [ "Aha - The Living Daylights", "Aha%20-%20The%20Living%20Daylights_Clip.mp3", "Aha%20-%20The%20Living%20Daylights_Reveal.mp3" ],
+      [ "Air Supply - All Out Of Love_Clip.mp3", "Air%20Supply%20-%20All%20Out%20Of%20Love_Clip.mp3", "Air%20Supply%20-%20All%20Out%20Of%20Love_Reveal.mp3" ],
+      [ "Aqua - Barbie Girl_Clip.mp3", "Aqua%20-%20Barbie%20Girl_Clip.mp3", "Aqua%20-%20Barbie%20Girl_Reveal.mp3" ],
+      [ "Atomic Kitten - Whole Again_Clip.mp3", "Atomic%20Kitten%20-%20Whole%20Again_Clip.mp3", "Atomic%20Kitten%20-%20Whole%20Again_Reveal.mp3" ],
+      [ "Beatles - Day Tripper_Clip.mp3", "Beatles%20-%20Day%20Tripper_Clip.mp3", "Beatles%20-%20Day%20Tripper_Reveal.mp3" ],
+      [ "Black Eyed Peas - I Gotta Feeling_Clip.mp3", "Black%20Eyed%20Peas%20-%20I%20Gotta%20Feeling_Clip.mp3", "Black%20Eyed%20Peas%20-%20I%20Gotta%20Feeling_Reveal.mp3" ],
+      [ "Blur - Parklife_Clip.mp3", "Blur%20-%20Parklife_Clip.mp3", "Blur%20-%20Parklife_Reveal.mp3" ],
+      [ "Boyz II Men - End Of The Road_Clip.mp3", "Boyz%20II%20Men%20-%20End%20Of%20The%20Road_Clip.mp3", "Boyz%20II%20Men%20-%20End%20Of%20The%20Road_Reveal.mp3" ],
+      [ "Britney Spears - My Only Wish (This Year)_Clip.mp3", "Britney%20Spears%20-%20My%20Only%20Wish%20%28This%20Year%29_Clip.mp3", "Britney%20Spears%20-%20My%20Only%20Wish%20%28This%20Year%29_Reveal.mp3" ],
+      [ "Cheryl Cole - Fight for This Love_Clip.mp3", "Cheryl%20Cole%20-%20Fight%20for%20This%20Love_Clip.mp3", "Cheryl%20Cole%20-%20Fight%20for%20This%20Love_Reveal.mp3" ],
+      [ "Christina Aguilera - Genie In A Bottle_Clip.mp3", "Christina%20Aguilera%20-%20Genie%20In%20A%20Bottle_Clip.mp3", "Christina%20Aguilera%20-%20Genie%20In%20A%20Bottle_Reveal.mp3" ],
+      [ "Coolio Feat. Lv - Gangstas Paradise_Clip.mp3", "Coolio%20Feat.%20Lv%20-%20Gangstas%20Paradise_Clip.mp3", "Coolio%20Feat.%20Lv%20-%20Gangstas%20Paradise_Reveal.mp3" ],
+      [ "Culture Club - Karma Chameleon_Clip.mp3", "Culture%20Club%20-%20Karma%20Chameleon_Clip.mp3", "Culture%20Club%20-%20Karma%20Chameleon_Reveal.mp3" ],
+      [ "Del Shannon - Little Town Flirt_Clip.mp3", "Del%20Shannon%20-%20Little%20Town%20Flirt_Clip.mp3", "Del%20Shannon%20-%20Little%20Town%20Flirt_Reveal.mp3" ],
+      [ "Dexy&#039;s Midnight Runners - Come On Eileen_Clip.mp3", "Dexy%27s%20Midnight%20Runners%20-%20Come%20On%20Eileen_Clip.mp3", "Dexy%27s%20Midnight%20Runners%20-%20Come%20On%20Eileen_Reveal.mp3" ],
+      [ "Dr Hook - When You&#039;re In Love With A Beautiful Woman_Clip.mp3", "Dr%20Hook%20-%20When%20You%27re%20In%20Love%20With%20A%20Beautiful%20Woman_Clip.mp3", "Dr%20Hook%20-%20When%20You%27re%20In%20Love%20With%20A%20Beautiful%20Woman_Reveal.mp3" ],
+      [ "East 17 - Stay Another Day_Clip.mp3", "East%2017%20-%20Stay%20Another%20Day_Clip.mp3", "East%2017%20-%20Stay%20Another%20Day_Reveal.mp3" ],
+      [ "Ella Henderson - Ghost_Clip.mp3", "Ella%20Henderson%20-%20Ghost_Clip.mp3", "Ella%20Henderson%20-%20Ghost_Reveal.mp3" ],
+      [ "Extreme - More Than Words_Clip.mp3", "Extreme%20-%20More%20Than%20Words_Clip.mp3", "Extreme%20-%20More%20Than%20Words_Reveal.mp3" ],
+      [ "Frankie Goes To Hollywood - The Power Of Love_Clip.mp3", "Frankie%20Goes%20To%20Hollywood%20-%20The%20Power%20Of%20Love_Clip.mp3", "Frankie%20Goes%20To%20Hollywood%20-%20The%20Power%20Of%20Love_Reveal.mp3" ],
+      [ "George Michael - Careless Whisper_Clip.mp3", "George%20Michael%20-%20Careless%20Whisper_Clip.mp3", "George%20Michael%20-%20Careless%20Whisper_Reveal.mp3" ],
+      [ "Guns &amp; Roses - Paradise City_Clip.mp3", "Guns%20%26%20Roses%20-%20Paradise%20City_Clip.mp3", "Guns%20%26%20Roses%20-%20Paradise%20City_Reveal.mp3" ],
+      [ "Jessie J - Price Tag_Clip.mp3", "Jessie%20J%20-%20Price%20Tag_Clip.mp3", "Jessie%20J%20-%20Price%20Tag_Reveal.mp3" ],
+      [ "Johnny Tillotson - Poetry In Motion_Clip.mp3", "Johnny%20Tillotson%20-%20Poetry%20In%20Motion_Clip.mp3", "Johnny%20Tillotson%20-%20Poetry%20In%20Motion_Reveal.mp3" ],
+      [ "Kylie Minogue - I Should Be So Lucky_Clip.mp3", "Kylie%20Minogue%20-%20I%20Should%20Be%20So%20Lucky_Clip.mp3", "Kylie%20Minogue%20-%20I%20Should%20Be%20So%20Lucky_Reveal.mp3" ],
+      [ "Lynyrd Skynyrd - Sweet Home Alabama_Clip.mp3", "Lynyrd%20Skynyrd%20-%20Sweet%20Home%20Alabama_Clip.mp3", "Lynyrd%20Skynyrd%20-%20Sweet%20Home%20Alabama_Reveal.mp3" ],
+      [ "Madonna - Papa Dont Preach_Clip.mp3", "Madonna%20-%20Papa%20Dont%20Preach_Clip.mp3", "Madonna%20-%20Papa%20Dont%20Preach_Reveal.mp3" ],
+      [ "Madonna - Vogue_Clip.mp3", "Madonna%20-%20Vogue_Clip.mp3", "Madonna%20-%20Vogue_Reveal.mp3" ],
+      [ "Maroon 5 - Moves Like Jagger_Clip.mp3", "Maroon%205%20-%20Moves%20Like%20Jagger_Clip.mp3", "Maroon%205%20-%20Moves%20Like%20Jagger_Reveal.mp3" ],
+      [ "Mika - Grace Kelly_Clip.mp3", "Mika%20-%20Grace%20Kelly_Clip.mp3", "Mika%20-%20Grace%20Kelly_Reveal.mp3" ],
+      [ "Moody Blues - Nights In White Satin_Clip.mp3", "Moody%20Blues%20-%20Nights%20In%20White%20Satin_Clip.mp3", "Moody%20Blues%20-%20Nights%20In%20White%20Satin_Reveal.mp3" ],
+      [ "Natalie Imbruglia - Torn_Clip.mp3", "Natalie%20Imbruglia%20-%20Torn_Clip.mp3", "Natalie%20Imbruglia%20-%20Torn_Reveal.mp3" ],
+      [ "Oasis - Live Forever_Clip.mp3", "Oasis%20-%20Live%20Forever_Clip.mp3", "Oasis%20-%20Live%20Forever_Reveal.mp3" ],
+      [ "Olly Murs - Dance With Me Tonight_Clip.mp3", "Olly%20Murs%20-%20Dance%20With%20Me%20Tonight_Clip.mp3", "Olly%20Murs%20-%20Dance%20With%20Me%20Tonight_Reveal.mp3" ],
+      [ "One Direction - Steal My Girl_Clip.mp3", "One%20Direction%20-%20Steal%20My%20Girl_Clip.mp3", "One%20Direction%20-%20Steal%20My%20Girl_Reveal.mp3" ],
+      [ "Paula Abdul - Opposites Attract_Clip.mp3", "Paula%20Abdul%20-%20Opposites%20Attract_Clip.mp3", "Paula%20Abdul%20-%20Opposites%20Attract_Reveal.mp3" ],
+      [ "Peter Andre - Mysterious Girl_Clip.mp3", "Peter%20Andre%20-%20Mysterious%20Girl_Clip.mp3", "Peter%20Andre%20-%20Mysterious%20Girl_Reveal.mp3" ],
+      [ "Queen - I Want To Break Free_Clip.mp3", "Queen%20-%20I%20Want%20To%20Break%20Free_Clip.mp3", "Queen%20-%20I%20Want%20To%20Break%20Free_Reveal.mp3" ],
+      [ "R.E.M - Everybody Hurts_Clip.mp3", "R.E.M%20-%20Everybody%20Hurts_Clip.mp3", "R.E.M%20-%20Everybody%20Hurts_Reveal.mp3" ],
+      [ "Rem - Man On The Moon_Fast.mp3", "Rem%20-%20Man%20On%20The%20Moon_Fast.mp3_Clip.mp3", "Rem%20-%20Man%20On%20The%20Moon_Reveal.mp3" ],
+      [ "Rod Stewart - Maggie May_Clip.mp3", "Rod%20Stewart%20-%20Maggie%20May_Clip.mp3", "Rod%20Stewart%20-%20Maggie%20May_Reveal.mp3" ],
+      [ "S Club 7 - Dont Stop Movin_Clip.mp3", "S%20Club%207%20-%20Dont%20Stop%20Movin_Clip.mp3", "S%20Club%207%20-%20Dont%20Stop%20Movin_Reveal.mp3" ],
+      [ "S Club 7 - Reach_Clip.mp3", "S%20Club%207%20-%20Reach_Clip.mp3", "S%20Club%207%20-%20Reach_Reveal.mp3" ],
+      [ "Seal - Kiss From A Rose_Fast.mp3", "Seal%20-%20Kiss%20From%20A%20Rose_Fast.mp3_Clip.mp3", "Seal%20-%20Kiss%20From%20A%20Rose_Reveal.mp3" ],
+      [ "Simply Red - Stars_Clip.mp3", "Simply%20Red%20-%20Stars_Clip.mp3", "Simply%20Red%20-%20Stars_Reveal.mp3" ],
+      [ "Spice Girls - Wannabe_Clip.mp3", "Spice%20Girls%20-%20Wannabe_Clip.mp3", "Spice%20Girls%20-%20Wannabe_Reveal.mp3" ],
+      [ "Take That - Back For Good_Clip.mp3", "Take%20That%20-%20Back%20For%20Good_Clip.mp3", "Take%20That%20-%20Back%20For%20Good_Reveal.mp3" ],
+      [ "Texas - Say What You Want_Clip.mp3", "Texas%20-%20Say%20What%20You%20Want_Clip.mp3", "Texas%20-%20Say%20What%20You%20Want_Reveal.mp3" ],
+      [ "Texas - Summer Sun_Clip.mp3", "Texas%20-%20Summer%20Sun_Clip.mp3", "Texas%20-%20Summer%20Sun_Reveal.mp3" ],
+      [ "The Shadows - Apache_Fast.mp3", "The%20Shadows%20-%20Apache_Fast.mp3_Clip.mp3", "The%20Shadows%20-%20Apache_Reveal.mp3" ],
+      [ "The Weather Girls - Its Raining Men_Clip.mp3", "The%20Weather%20Girls%20-%20Its%20Raining%20Men_Clip.mp3", "The%20Weather%20Girls%20-%20Its%20Raining%20Men_Reveal.mp3" ],
+      [ "Tony Christie - Amarillo_Clip.mp3", "Tony%20Christie%20-%20Amarillo_Clip.mp3", "Tony%20Christie%20-%20Amarillo_Reveal.mp3" ],
+      [ "U2 - With Or Without You_Clip.mp3", "U2%20-%20With%20Or%20Without%20You_Clip.mp3", "U2%20-%20With%20Or%20Without%20You_Reveal.mp3" ],
+      [ "Whitney Houston - I Will Always Love You_Clip.mp3", "Whitney%20Houston%20-%20I%20Will%20Always%20Love%20You_Clip.mp3", "Whitney%20Houston%20-%20I%20Will%20Always%20Love%20You_Reveal.mp3" ],
+  ];
+
+    let index = Math.floor(Math.random() * songs.length);
+
+    document.getElementById('clipButton').addEventListener('click', function() {
+      // Select the clip version of the song and play it
+      document.getElementById('audioPlayer').src="https://quizmasters.biz/DB/Audio/Supersonic%20Songs/Mp3/"+songs[index][1];
+      document.getElementById('answerText').textContent="";
+      document.getElementById('audioPlayer').play();
+    });
+    
+    document.getElementById('revealButton').addEventListener('click', function() {
+      // Select the reveal version of the song and play it
+      document.getElementById('audioPlayer').src="https://quizmasters.biz/DB/Audio/Supersonic%20Songs/Mp3/"+songs[index][2];
+      document.getElementById('answerText').textContent=songs[index][0];
+      document.getElementById('audioPlayer').play();
+    });
+    
+    document.getElementById('nextButton').addEventListener('click', function() {
+      // Stop any current audio
+      document.getElementById('audioPlayer').pause();
+      document.getElementById('answerText').textContent="";
+      
+      // Choose the next one to guess
+      index = Math.floor(Math.random() * songs.length);
+      document.getElementById('indexText').textContent="" + index;
+    });
+  </script>
+</body>
+</html>
