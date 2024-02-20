@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supersonic Songs</title>
+</head>
+<body>
+  <a href="./index.html">Home</a>
+  <br>
+  <br>
+  <button id="clipButton">Play Clip</button>
+  <button id="revealButton">Reveal</button>
+  <br>
+  <ul>
+    <li><a id="answerText1"></a></li>
+    <li><a id="answerText2"></a></li>
+    <li><a id="answerText3"></a></li>
+  </ul>
+  <audio id="audioPlayer" src=""></audio>
+  <br>
+  <button id="nextButton">Next</button>
+  <a id="indexText"></a>
+  <script>
+    let songs = [
+      [ "Mp3/Mixup_001.mp3", "Tears For Fears / Mad World ", "Britney Spears / Sometimes", "" ],
+      [ "Mp3/Mixup_002.mp3", "Beach Boys / Good Vibrations", "Chaka Khan / Aint Nobody", "" ],
+      [ "Mp3/Mixup_003.mp3", "Chicory Tip / Son Of My Father", "Atomic Kitten / Whole Again", "Neneh / 99 Red Balloons" ],
+      [ "Mp3/Mixup_004.mp3", "Ace Of Base / All That She Wants", "Abba / Knowing Me Knowing You", "Air Supply / All Out Of Love" ],
+      [ "Mp3/Mixup_005.mp3", "Boy Meets Girl / Waiting For A Star To Fall", "Coldplay / Viva La Vida", "Sandie Shaw / Puppet On A String" ],
+      [ "Mp3/Mixup_006.mp3", "The Carpenters / Solitaire", "Phil Collins  / Against All Odds", "Britney Spears / Womaniser" ],
+      [ "Mp3/Mixup_007.mp3", "Katy Perry / I Kissed A Girl", "Spandau Ballet / Gold", "Steve Miller Band / The Joker" ],
+      [ "Mp3/Mixup_008.mp3", "The Kinks / Lazy Sunny Afternoon", "Take That / Greatest Day", "Richard Marx / Hazzard" ],
+      [ "Mp3/Mixup_009.mp3", "Ricky Martin / Livin La Vida Loca", "Grandmaster Flash / White Lines", "The Verve / The Drugs Don't Work" ],
+      [ "Mp3/Mixup_010.mp3", "Melanie C / I Turn To You", "Status Quo / Rocking All Over The World", "Little Eva / The Locomotion" ],
+      [ "Mp3/Mixup_011.mp3", "Carl Douglas / Kung Fu Fighting", "Chad Kroeger / Hero", "Radiohead / Creep" ],
+      [ "Mp3/Mixup_012.mp3", "Cyndi Laper / Girls Just Wana Have", "Leann Rimes / Can't Fight The Moonlight", "Dusty Springfield / Son Of Preacher Man" ],
+      [ "Mp3/Mixup_013.mp3", "Take That / Back For Good", "Savage Garden / Truly Madly Deeply", "Level 42 / The Sun Goes Down" ],
+      [ "Mp3/Mixup_014.mp3", "Procul Harum / A Whiter Shade Of Pale", "Chad Kroeger / Hero", "Aztec Camera / Somewhere In My Heart" ],
+      [ "Mp3/Mixup_015.mp3", "Westlife / World Of Our Own", "Shanice / I Love Your Smile", "Poison / Every Rose Has Its Thorn" ],
+  ];
+
+    let index = Math.floor(Math.random() * songs.length);
+    let path = "https://quizmasters.biz/DB/Audio/Musical%20Mixup/";
+
+    document.getElementById('clipButton').addEventListener('click', function() {
+      // Select the clip version of the song and play it
+      document.getElementById('audioPlayer').src=path+songs[index][0];
+      document.getElementById('answerText1').textContent="";
+      document.getElementById('answerText2').textContent="";
+      document.getElementById('answerText3').textContent="";
+      document.getElementById('audioPlayer').play();
+    });
+    
+    document.getElementById('revealButton').addEventListener('click', function() {
+      // Select the reveal version of the song and play it
+      document.getElementById('answerText1').textContent=songs[index][1];
+      document.getElementById('answerText2').textContent=songs[index][2];
+      document.getElementById('answerText3').textContent=songs[index][3];
+      document.getElementById('audioPlayer').play();
+    });
+    
+    document.getElementById('nextButton').addEventListener('click', function() {
+      // Stop any current audio
+      document.getElementById('audioPlayer').pause();
+      document.getElementById('answerText1').textContent="";
+      document.getElementById('answerText2').textContent="";
+      document.getElementById('answerText3').textContent="";
+      
+      // Choose the next one to guess
+      index = Math.floor(Math.random() * songs.length);
+      document.getElementById('indexText').textContent="" + index;
+    });
+  </script>
+</body>
+</html>
